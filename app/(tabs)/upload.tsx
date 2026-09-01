@@ -5,7 +5,7 @@ import { DefaultTextArea } from "@/components/ui/inputs/DefaultTextArea";
 import { MultiImagePicker } from "@/components/ui/MultiImagePicker";
 import { CategorySelect } from "@/components/ui/selects/CategorySelect";
 import { DefaultSwitch } from "@/components/ui/switch/DefaultSwitch";
-import { Colors, Spacing, Styles } from "@/constants/design-system";
+import { Spacing, Styles } from "@/constants/design-system";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";

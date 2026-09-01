@@ -1,13 +1,13 @@
+import { usePathname, useRouter, useSegments } from "expo-router";
+import { User } from "firebase/auth";
 import {
   createContext,
-  useContext,
-  useState,
-  useEffect,
   ReactNode,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import { User } from "firebase/auth";
 import { onAuthChange } from "../auth";
-import { useRouter, useSegments, usePathname } from "expo-router";
 
 interface AuthContextType {
   user: User | null;

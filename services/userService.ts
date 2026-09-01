@@ -1,15 +1,15 @@
 import {
+  collection,
   doc,
   getDoc,
-  serverTimestamp,
   getDocs,
-  updateDoc,
-  collection,
   query,
+  serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { UserData } from "../interfaces/index"
+import { UserData } from "../interfaces/index";
 
 
 export async function createUserProfile(uid: string, userData: UserData): Promise<void> {
