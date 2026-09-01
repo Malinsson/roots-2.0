@@ -6,11 +6,11 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
-  verifyBeforeUpdateEmail,
   updatePassword,
+  verifyBeforeUpdateEmail,
 } from "firebase/auth";
-import { auth, db } from "./firebaseConfig";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "./firebaseConfig";
 
 export const signUp = async (email, password, userData = {}) => {
   try {
