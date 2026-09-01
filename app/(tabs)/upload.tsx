@@ -41,11 +41,12 @@ export default function UploadScreen() {
       return;
     }
 
+    /*
     if (plantImages.length === 0) {
       setError("Minst en bild krävs");
       return;
     }
-
+*/
     setLoading(true);
 
     try {
@@ -55,15 +56,15 @@ export default function UploadScreen() {
         description: description.trim(),
         readyToAdopt: readyToAdopt,
         categoryId: categoryId,
-        imageUrl: plantImages[0] || "",
-        imageUrls: plantImages,
+        //imageUrl: plantImages[0] || "",
+        //imageUrls: plantImages,
       });
 
       setPlantName("");
       setDescription("");
       setReadyToAdopt(false);
       setCategoryId("");
-      setPlantImages([]);
+      //setPlantImages([]);
 
       router.replace("/(tabs)/explore");
     } catch (err) {

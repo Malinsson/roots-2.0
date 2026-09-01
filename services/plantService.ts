@@ -11,7 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { Plant, PlantData } from "../interfaces/index"
+import { Plant, PlantData } from "../interfaces/index";
 
 export async function createPlant(userId: string, plantData: PlantData): Promise<string> {
   try {
@@ -22,10 +22,10 @@ export async function createPlant(userId: string, plantData: PlantData): Promise
       readyToAdopt: plantData.readyToAdopt || false,
       userId: userId,
       categoryId: plantData.categoryId,
-      imageUrl: plantData.imageUrl || "",
+      //imageUrl: plantData.imageUrl || "",
       createdAt: serverTimestamp(),
       adoptedBy: null,
-      imageUrls: plantData.imageUrls || [],
+      //imageUrls: plantData.imageUrls || [],
     });
     return plantRef.id;
   } catch (error) {
