@@ -14,13 +14,19 @@ export default function WelcomeScreen() {
         resizeMode="contain"
       />
 
-      <DefaultButton onPress={() => router.replace("/login")} variant="primary">
+      {/* Min-width on the buttons to give them the same size */}
+      <DefaultButton
+        onPress={() => router.replace("/login")}
+        variant="primary"
+        style={{ minWidth: 130 }}
+      >
         Logga in
       </DefaultButton>
 
       <DefaultButton
         onPress={() => router.replace("/register")}
         variant="secondary"
+        style={{ minWidth: 130 }}
       >
         Registrera
       </DefaultButton>
