@@ -5,13 +5,12 @@ import { DefaultInput } from "@/components/ui/inputs/DefaultInput";
 import { DefaultTextArea } from "@/components/ui/inputs/DefaultTextArea";
 import { Colors, Styles } from "@/constants/design-system";
 import { useAuth } from "@/contexts/AuthContext";
-import { pickAndUploadImage } from "@/services/imageService";
+import { OptimizationPresets, pickAndUploadImage } from "@/services/imageService";
 import { getCoordinates } from "@/services/locationService";
 import { getUserProfile, updateUserProfile } from "@/services/userService";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Text } from "react-native";
-import { OptimizationPresets } from "@/services/imageService";
 
 export default function EditProfileScreen() {
   const router = useRouter();
@@ -126,25 +125,37 @@ export default function EditProfileScreen() {
         Ladda upp bild
       </DefaultButton>
 
-      <DefaultInput
-        value={newUsername}
-        onChangeText={setNewUsername}
-        placeholder="Användarnamn"
-        autoCapitalize="none"
-      />
+      <div style={Styles.container}>
+        <Text style={Styles.label}>Användarnamn</Text>
+        <DefaultInput
+          value={newUsername}
+          onChangeText={setNewUsername}
+          placeholder="Användarnamn"
+          autoCapitalize="none"
+          id="username-input"
+          />
+        </div>
 
-      <DefaultInput
-        value={newPostalcode}
-        onChangeText={setNewPostalcode}
-        placeholder="Postnummer"
-        maxLength={5}
-      />
+      <div style={Styles.container}>
+        <Text style={Styles.label}>Postnummer</Text>
+        <DefaultInput
+          value={newPostalcode}
+          onChangeText={setNewPostalcode}
+          placeholder="Postnummer"
+          maxLength={5}
+          id="postal-code-input"
+          />
+      </div>
 
-      <DefaultTextArea
-        value={newBio}
-        onChangeText={setNewBio}
-        placeholder="Beskrivning..."
-      />
+      <div style={Styles.container}>
+        <Text style={Styles.label}>Beskrivning</Text>
+        <DefaultTextArea
+          value={newBio}
+          onChangeText={setNewBio}
+          placeholder="Beskrivning..."
+          id="bio-input"
+        />
+      </div>
 
       <Text style={Styles.actionL}>{error}</Text>
 
