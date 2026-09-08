@@ -98,6 +98,8 @@ export interface PlantWithDistance extends Plant {
   distance: number | null;
   username?: string;
   ownerProfileImageUrl?: string;
+  ownerLat?: number;
+  ownerLon?: number;
 }
 
 export interface Category {

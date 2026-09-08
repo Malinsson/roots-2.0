@@ -78,6 +78,8 @@ export default function ExploreScreen() {
             distance,
             username: ownerProfile?.username,
             ownerProfileImageUrl: ownerProfile?.profileImageUrl || "",
+            ownerLat: ownerProfile?.lat,
+            ownerLon: ownerProfile?.lon,
             categoryName,
           };
         })
@@ -266,6 +268,10 @@ export default function ExploreScreen() {
                 imageUrls={plant.imageUrls}
                 categoryName={plant.categoryName}
                 readyToAdopt={plant.readyToAdopt}
+                userLat={myCoordinates?.lat}
+                userLon={myCoordinates?.lon}
+                plantOwnerLat={plant.ownerLat}
+                plantOwnerLon={plant.ownerLon}
                 ownerUsername={plant.username}
                 ownerProfileImageUrl={plant.ownerProfileImageUrl}
                 onOwnerPress={() =>
