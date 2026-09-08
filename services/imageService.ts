@@ -1,8 +1,9 @@
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 import { storage } from "../firebaseConfig";
+import { uploadImageToCloudinary } from "./../cloudinaryService";
 
 export interface OptimizationOptions {
   maxWidth?: number;
@@ -67,6 +68,12 @@ export async function optimizeImage(
 }
 
 export async function chooseImageSource(): Promise<string | null> {
+
+  // Skip camera choice and permission check on web, since the web version of ImagePicker handles this automatically.
+  if (Platform.OS === "web") {
+    return pickImageFromLibrary();
+  }
+
   return new Promise((resolve) => {
     Alert.alert(
       "Välj bild",
@@ -161,13 +168,11 @@ export async function uploadImage(
   try {
     const optimizedUri = await optimizeImage(imageUri, optimizationOptions);
     const response = await fetch(optimizedUri);
-    const blob = await response.blob();
+    const file = await response.blob();
 
-    const storageRef = ref(storage, `${folder}/${fileName}.jpg`);
-    await uploadBytes(storageRef, blob);
-    const downloadURL = await getDownloadURL(storageRef);
+    const url = await uploadImageToCloudinary(file);
 
-    return downloadURL;
+    return url;
   } catch (error) {
     console.error("Error uploading image:", error);
     Alert.alert("Fel", "Kunde inte ladda upp bild.");
