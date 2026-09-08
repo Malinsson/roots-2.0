@@ -6,8 +6,14 @@ import { Profanity } from "@2toad/profanity";
 import { Dropdown } from "react-native-element-dropdown";
 import { Ionicons } from "@expo/vector-icons";
 import { BorderRadius, Colors, Spacing, Styles } from "@/constants/design-system";
+import { SWEDISH_BANNED_WORDS } from "@/utils/bannedWords";
 
 const profanity = new Profanity();
+
+function containsBannedWords(text: string): boolean {
+  const lowerText = text.toLowerCase();
+  return SWEDISH_BANNED_WORDS.some((word) => lowerText.includes(word));
+}
 
 export function CategorySelect({
   value,
@@ -60,7 +66,7 @@ export function CategorySelect({
       const categoryName = item.value.replace("ADD_NEW:", "");
       setError("");
 
-      if (profanity.exists(categoryName)) {
+      if (profanity.exists(categoryName) || containsBannedWords(categoryName)) {
         setError("Kategorins namn innehåller otillåtet språk");
         return;
       }
