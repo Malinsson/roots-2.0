@@ -140,4 +140,18 @@ export const Styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: Typography.fontSize["xs"] * 0.05,
   },
+  label: {
+    marginTop: Spacing.s,
+    marginBottom: Spacing.m,
+    alignContent: "flex-start",
+    justifyContent: "flex-start",
+    textAlign: "left",
+    fontFamily: "Poppins_600SemiBold",
+    fontSize: Typography.fontSize["m"],
+    color: Colors.text,
+  },
+  container: {
+    flex: 1,
+    width: "100%",
+  },
 });

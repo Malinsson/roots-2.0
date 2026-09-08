@@ -3,7 +3,9 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
+  increment,
   onSnapshot,
   orderBy,
   query,
@@ -14,7 +16,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { increment, getDoc } from "firebase/firestore";
 
 // Helper function to create a consistent chatId
 function getChatId(userId1: string, userId2: string): string {

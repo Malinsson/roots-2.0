@@ -1,7 +1,7 @@
-import { Dropdown } from 'react-native-element-dropdown';
-import { StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors, Styles, BorderRadius} from "../../../constants/design-system"
+import { StyleSheet } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
+import { BorderRadius, Colors, Styles } from "../../../constants/design-system";
 
 export type SelectOption = {
   label: string;
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.m,
     paddingHorizontal: 24,
     backgroundColor: Colors.secondary,
+    paddingVertical: 8
   },
   placeholderStyle: {
     color: Colors.details,
