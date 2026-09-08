@@ -68,6 +68,8 @@ export async function optimizeImage(
 }
 
 export async function chooseImageSource(): Promise<string | null> {
+
+  // Skip camera choice and permission check on web, since the web version of ImagePicker handles this automatically.
   if (Platform.OS === "web") {
     return pickImageFromLibrary();
   }
