@@ -1,8 +1,9 @@
 import {
-  isValidPostalCode,
-  isValidEmail,
-  truncateText,
-  formatCredits,
+    containsUnsafeInput,
+    formatCredits,
+    isValidEmail,
+    isValidPostalCode,
+    truncateText,
 } from "./validation";
 
 describe("Validation Utils - Super Easy Tests", () => {
@@ -34,6 +35,21 @@ describe("Validation Utils - Super Easy Tests", () => {
     });
   });
 
+  describe("containsUnsafeInput", () => {
+    it("should detect script-like input", () => {
+      expect(containsUnsafeInput("<script>alert(1)</script>")).toBe(true);
+      expect(containsUnsafeInput("javascript:alert(1)")).toBe(true);
+      expect(containsUnsafeInput('<img src="x" onerror="alert(1)">')).toBe(
+        true,
+      );
+    });
+
+    it("should allow normal text", () => {
+      expect(containsUnsafeInput("Gröna växter")).toBe(false);
+      expect(containsUnsafeInput("Kaktus & aloe vera")).toBe(false);
+    });
+  });
+
   describe("truncateText", () => {
     it("should not truncate short text", () => {
       expect(truncateText("Hello", 10)).toBe("Hello");
@@ -41,7 +57,7 @@ describe("Validation Utils - Super Easy Tests", () => {
 
     it("should truncate long text and add ellipsis", () => {
       expect(truncateText("This is a very long text", 10)).toBe(
-        "This is a ..."
+        "This is a ...",
       );
     });
 

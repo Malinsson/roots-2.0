@@ -12,6 +12,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@2toad/profanity": "^3.3.0",
     "@cloudinary/react": "^1.14.4",
     "@cloudinary/url-gen": "^1.22.0",
     "@expo-google-fonts/poppins": "^0.4.1",
