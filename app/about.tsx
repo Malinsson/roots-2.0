@@ -1,7 +1,16 @@
 import { DefaultButton } from "@/components/ui/buttons/DefaultButton";
+import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Colors, Spacing, Styles } from "@/constants/design-system";
 import { useRouter } from "expo-router";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import {
+  Animated,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function AboutAppScreen() {
   const router = useRouter();
@@ -11,12 +20,47 @@ export default function AboutAppScreen() {
   }: {
     question: string;
     answer: string;
-  }) => (
-    <View style={styles.faqItem}>
-      <Text style={styles.question}>{question}</Text>
-      <Text style={styles.answer}>{answer}</Text>
-    </View>
-  );
+  }) => {
+    const [expanded, setExpanded] = useState(false);
+    const rotation = useRef(new Animated.Value(0)).current;
+
+    const toggleExpanded = () => {
+      const nextExpanded = !expanded;
+
+      setExpanded(nextExpanded);
+
+      Animated.timing(rotation, {
+        toValue: nextExpanded ? 1 : 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    };
+
+    const rotate = rotation.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "90deg"],
+    });
+
+    return (
+      <View style={styles.faqItem}>
+        <Pressable
+          onPress={toggleExpanded}
+          accessibilityRole="button"
+          accessibilityState={{ expanded }}
+        >
+          <View style={styles.questionRow}>
+            <Text style={styles.question}>{question}</Text>
+
+            <Animated.View style={{ transform: [{ rotate }] }}>
+              <IconSymbol name="chevron.right" size={22} color={Colors.text} />
+            </Animated.View>
+          </View>
+        </Pressable>
+
+        {expanded && <Text style={styles.answer}>{answer}</Text>}
+      </View>
+    );
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -118,7 +162,7 @@ export default function AboutAppScreen() {
           onPress={() => router.replace("/(tabs)/contact")}
           variant="primary"
         >
-          Kontkta oss här!
+          Kontakta oss här!
         </DefaultButton>
       </View>
     </ScrollView>
@@ -151,6 +195,13 @@ const styles = StyleSheet.create({
   faqItem: {
     marginBottom: Spacing.l,
   },
+
+  questionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
   question: {
     ...Styles.heading3,
     marginBottom: Spacing.xs,
