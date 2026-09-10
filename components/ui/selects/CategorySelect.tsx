@@ -1,12 +1,18 @@
+import {
+  BorderRadius,
+  Colors,
+  Spacing,
+  Styles,
+} from "@/constants/design-system";
 import { Category } from "@/interfaces";
-import { getCategories, addCategory } from "@/services/categoryService";
-import { useEffect, useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Profanity } from "@2toad/profanity";
-import { Dropdown } from "react-native-element-dropdown";
-import { Ionicons } from "@expo/vector-icons";
-import { BorderRadius, Colors, Spacing, Styles } from "@/constants/design-system";
+import { addCategory, getCategories } from "@/services/categoryService";
 import { SWEDISH_BANNED_WORDS } from "@/utils/bannedWords";
+import { containsUnsafeInput } from "@/utils/validation";
+import { Profanity } from "@2toad/profanity";
+import { Ionicons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
 
 const profanity = new Profanity();
 
@@ -39,12 +45,12 @@ export function CategorySelect({
 
   const filteredCategories = searchText.trim()
     ? categories.filter((cat) =>
-        cat.name.toLowerCase().includes(searchText.toLowerCase())
+        cat.name.toLowerCase().includes(searchText.toLowerCase()),
       )
     : categories;
 
   const categoryExists = categories.some(
-    (cat) => cat.name.toLowerCase() === searchText.toLowerCase()
+    (cat) => cat.name.toLowerCase() === searchText.toLowerCase(),
   );
 
   const showAddButton = searchText.trim().length > 0 && !categoryExists;
@@ -66,7 +72,11 @@ export function CategorySelect({
       const categoryName = item.value.replace("ADD_NEW:", "");
       setError("");
 
-      if (profanity.exists(categoryName) || containsBannedWords(categoryName)) {
+      if (
+        containsUnsafeInput(categoryName) ||
+        profanity.exists(categoryName) ||
+        containsBannedWords(categoryName)
+      ) {
         setError("Kategorins namn innehåller otillåtet språk");
         return;
       }
@@ -110,7 +120,12 @@ export function CategorySelect({
         onChangeText={setSearchText}
         renderItem={(item) => (
           <View style={{ paddingVertical: 8, paddingHorizontal: 12 }}>
-            <Text style={[Styles.bodyM, item.value.startsWith("ADD_NEW:") && { color: "#333333ff" }]}>
+            <Text
+              style={[
+                Styles.bodyM,
+                item.value.startsWith("ADD_NEW:") && { color: "#333333ff" },
+              ]}
+            >
               {item.label}
             </Text>
           </View>
@@ -161,4 +176,3 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.m,
   },
 });
-
