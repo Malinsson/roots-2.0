@@ -1,5 +1,7 @@
 import { db } from "@/firebaseConfig";
+import { calculateDistance } from "@/utils/distanceCalculator";
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -13,7 +15,6 @@ import {
 import { ProductCardProps } from "../../../interfaces/index";
 import { CardActions, CardInfo, ImageCarousel } from "./ProductCardContent";
 import { useProductCardLogic } from "./useProductCardLogic";
-import { useRouter } from "expo-router";
 
 export const ProductCardBig = ({
   userId,
@@ -105,6 +106,8 @@ export const ProductCardBig = ({
             <View style={styles.cardInfo}>
               <CardInfo
                 name={name}
+                distance={calculateDistance(userLat, userLon, plantOwnerLat, plantOwnerLon)}
+                showLocation={true}
                 headingStyle={Styles.heading1}
                 textContainerStyle={{ flex: 1 }}
               />
@@ -143,6 +146,8 @@ export const ProductCardBig = ({
           <View style={styles.cardInfo}>
             <CardInfo
               name={name}
+              distance={calculateDistance(userLat, userLon, plantOwnerLat, plantOwnerLon)}
+              showLocation={true}
               headingStyle={Styles.heading1}
               textContainerStyle={{ flex: 1 }}
             />
@@ -154,6 +159,8 @@ export const ProductCardBig = ({
               style={styles.icons}
             />
           </View>
+
+          
 
           {description && (
             <Text style={[styles.description, Styles.bodyM]}>
