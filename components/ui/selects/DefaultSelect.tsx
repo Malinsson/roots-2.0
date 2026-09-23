@@ -8,16 +8,20 @@ export type SelectOption = {
   value: string;
 };
 
-export function DefaultSelect({ 
-  value, 
+export function DefaultSelect({
+  value,
   onValueChange,
   data,
-  placeholder = "Sortera"
-}: { 
-  value: string; 
+  placeholder = "Sortera",
+  enableSearch = false,
+  searchPlaceholder = "Sök..."
+}: {
+  value: string;
   onValueChange: (value: string) => void;
   data: SelectOption[];
   placeholder?: string;
+  enableSearch?: boolean;
+  searchPlaceholder?: string;
 }) {
   return (
     <Dropdown
@@ -26,7 +30,7 @@ export function DefaultSelect({
       selectedTextStyle={[Styles.bodyM, styles.selectedTextStyle]}
       containerStyle={styles.containerStyle}
       itemTextStyle={[Styles.bodyM, styles.itemTextStyle]}
-      itemContainerStyle={styles.itemContainerStyle} 
+      itemContainerStyle={styles.itemContainerStyle}
       activeColor="#f0f0f0"
       data={data}
       labelField="label"
@@ -34,11 +38,13 @@ export function DefaultSelect({
       placeholder={placeholder}
       value={value}
       onChange={item => onValueChange(item.value)}
+      search={enableSearch}
+      searchPlaceholder={searchPlaceholder}
       renderRightIcon={() => (
         <Ionicons name="swap-vertical" size={15} color={Colors.details} />
 
 
-       
+
       )}
     />
   );
